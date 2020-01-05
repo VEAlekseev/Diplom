@@ -1,8 +1,10 @@
-version: '3'
+version: '3.7'
 services:
 
   mysql:
-    image: mysql:latest
+    image: mysql:8.0.18
+    container_name: mysql-container
+    command: --innodb_use_native_aio=0
     ports:
       - '3306:3306'
     environment:
@@ -16,12 +18,13 @@ services:
   node-app:
     build: ./gate-simulator
     image: node-app:1.0
-    container_name: js-container
+    container_name: node
     ports:
       - '9999:9999'
 
   postgres:
-    image: postgres:latest
+    image: postgres:12.0-alpine
+    container_name: pstg-container
     ports:
       - '5432:5432'
     environment:
@@ -29,7 +32,4 @@ services:
       - POSTGRES_USER=app
       - POSTGRES_PASSWORD=pass
     volumes:
-      - ./data:/var/lib/postgres
-
-
-
+      - ./data:/var/lib/postgresql/datapstg
