@@ -22,7 +22,7 @@ public class DBUtils {
         runner.update(conn, "DELETE FROM order_entity;");
     }
 
-    public static void checkPaymentStatus(Status status) throws SQLException {
+    public static void checkPaymentStatus(Status status) throws SQLException,NullPointerException {
         val runner = new QueryRunner();
         val conn = DriverManager.getConnection(url, userDB, password);
         val paymentDataSQL = "SELECT status FROM payment_entity;";
@@ -30,7 +30,7 @@ public class DBUtils {
         assertEquals(status, payment.status);
     }
 
-    public static void checkCreditStatus(Status status) throws SQLException {
+    public static void checkCreditStatus(Status status) throws SQLException,NullPointerException {
         val runner = new QueryRunner();
         val conn = DriverManager.getConnection(url, userDB, password);
         val creditDataSQL = "SELECT status FROM credit_request_entity;";

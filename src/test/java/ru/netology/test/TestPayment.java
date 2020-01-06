@@ -6,6 +6,7 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import ru.netology.data.DBUtils;
+import ru.netology.data.Status;
 import ru.netology.page.FormPage;
 
 import java.sql.SQLException;
@@ -113,4 +114,60 @@ public class TestPayment {
         formPage.pushСontinueButton();
         formPage.checkMessageError();
     }
+
+//    @Test
+//    @DisplayName("Оплата по карте, проверка записи в БД")
+//    void shouldPayByApprovedCardStatusInDB()  throws SQLException,NullPointerException{
+//        formPage.buyForYourMoney();
+//        formPage.setCardNumber("4444444444444441");
+//        formPage.setCardMonth("08");
+//        formPage.setCardYear("22");
+//        formPage.setCardOwner("Ivanov Ivan");
+//        formPage.setCardCVV("111");
+//        formPage.pushСontinueButton();
+//        formPage.checkMessageSuccess();
+//        DBUtils.checkPaymentStatus(Status.APPROVED);
+//    }
+//
+//    @Test
+//    @DisplayName("Отказ по карте, проверка отсутствия записи в БД")
+//    void shouldNoPayByDeclinedCardStatusInDB() throws SQLException,NullPointerException {
+//        formPage.buyForYourMoney();
+//        formPage.setCardNumber("4444444444444442");
+//        formPage.setCardMonth("08");
+//        formPage.setCardYear("22");
+//        formPage.setCardOwner("Ivanov Ivan");
+//        formPage.setCardCVV("111");
+//        formPage.pushСontinueButton();
+//        formPage.checkMessageError();
+//        DBUtils.checkPaymentStatus(Status.DECLINED);
+//    }
+//
+//    @Test
+//    @DisplayName("Оплата по кредитной карте, проверка записи в БД")
+//    void shouldCreditByApprovedCardStatusInDB()  throws SQLException,NullPointerException{
+//        formPage.buyOnCredit();
+//        formPage.setCardNumber("4444444444444441");
+//        formPage.setCardMonth("08");
+//        formPage.setCardYear("22");
+//        formPage.setCardOwner("Ivanov Ivan");
+//        formPage.setCardCVV("111");
+//        formPage.pushСontinueButton();
+//        formPage.checkMessageSuccess();
+//        DBUtils.checkPaymentStatus(Status.APPROVED);
+//    }
+//
+//    @Test
+//    @DisplayName("Отказ по кредитной карте, проверка отсутствия записи в БД")
+//    void shouldNoCreditByDeclinedCardStatusInDB() throws SQLException,NullPointerException {
+//        formPage.buyOnCredit();
+//        formPage.setCardNumber("4444444444444442");
+//        formPage.setCardMonth("08");
+//        formPage.setCardYear("22");
+//        formPage.setCardOwner("Ivanov Ivan");
+//        formPage.setCardCVV("111");
+//        formPage.pushСontinueButton();
+//        formPage.checkMessageError();
+//        DBUtils.checkPaymentStatus(Status.DECLINED);
+//    }
 }

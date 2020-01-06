@@ -1,10 +1,12 @@
 package ru.netology.page;
 
 import com.codeborne.selenide.SelenideElement;
+import lombok.Getter;
 
 import java.util.List;
 
 import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -14,12 +16,11 @@ public class FormPage {
     private static String appPORT = System.getProperty("app.port");
 
 
-    List<SelenideElement> input = $$(".input__control");
-    SelenideElement cardNumber = input.get(0);
-    SelenideElement month = input.get(1);
-    SelenideElement year = input.get(2);
-    SelenideElement cardOwner = input.get(3);
-    SelenideElement cvcOrCvvNumber = input.get(4);
+    SelenideElement cardNumber = $(byText("Номер карты")).parent().$(".input__control");
+    SelenideElement month = $(byText("Месяц")).parent().$(".input__control");
+    SelenideElement year = $(byText("Год")).parent().$(".input__control");
+    SelenideElement cardOwner = $(byText("Владелец")).parent().$(".input__control");
+    SelenideElement cvcOrCvvNumber = $(byText("CVC/CVV")).parent().$(".input__control");
 
     public void buyForYourMoney() {
         open(appURL + ":" + appPORT);
