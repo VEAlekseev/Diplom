@@ -8,7 +8,7 @@
 #### Для работы с MySQL
 1. Запустить контейнеры: MySQL, Node.js
     ```
-    docker-compose -f docker-compose-msql.yml up -d --force-recreate
+    docker-compose -f docker-compose-msql.yml up -d
     ```
 
 2. Запустить SUT
@@ -23,13 +23,13 @@
    
 4. После прогона тестов остановить контейнеры
     ```
-    docker-compose -f docker-compose-ms.yml down
+    docker-compose -f docker-compose-msql.yml down
     ```
    
 #### Для работы с Postgres
 1. Запустить контейнеры: Postgres, Node.js
     ```
-    docker-compose -f docker-compose-psql.yml up -d --force-recreate
+    docker-compose -f docker-compose-psql.yml up -d
     ```
 
 2. Запустить SUT
@@ -43,16 +43,13 @@
     ```
 4. После прогона тестов остановить контейнеры
     ```
-    docker-compose -f docker-compose-ps.yml down
+    docker-compose -f docker-compose-psql.yml down
     ```
    
    ### Allure
    
-   Для запуска тестов Allure выполнить команду 
+   Для формирования отчета Allure выполнить команды 
    ```
-   ./gradlew clean test allureReport
-   ```
-   Для просмотра результатов 
-   ```
-   ./gradlew allureServe
+   gradlew allureReport
+   gradlew allureServe
    ```
