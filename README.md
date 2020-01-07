@@ -9,6 +9,9 @@
 1. Запустить контейнеры: MySQL, Node.js
     ```
     docker-compose -f docker-compose-msql.yml up -d
+   
+   npm start
+
     ```
 
 2. Запустить SUT
@@ -30,6 +33,9 @@
 1. Запустить контейнеры: Postgres, Node.js
     ```
     docker-compose -f docker-compose-psql.yml up -d
+
+   npm start
+
     ```
 
 2. Запустить SUT

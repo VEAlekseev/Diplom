@@ -1,9 +1,7 @@
 package ru.netology.page;
 
 import com.codeborne.selenide.SelenideElement;
-import lombok.Getter;
 
-import java.util.List;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
@@ -35,17 +33,17 @@ public class FormPage {
     }
 
     public void checkMessageSuccess() {
-        $$(".notification__title").find(exactText("Успешно")).waitUntil(visible, 40000);
+        $$(".notification__title").find(exactText("Успешно")).waitUntil(visible, 60000);
     }
 
     public void checkMessageError() {
-        $$(".notification__title").find(exactText("Ошибка")).waitUntil(visible, 40000);
+        $$(".notification__title").find(exactText("Ошибка")).waitUntil(visible, 60000);
     }
 
     public void checkExpected(String expected) {
-    $(".input__sub").shouldHave(text(expected));
-    String actual = $(".input__sub").innerText();
-    assertEquals(expected, actual);
+        $(".input__sub").shouldHave(text(expected));
+        String actual = $(".input__sub").innerText();
+        assertEquals(expected, actual);
     }
 
     public void setCardNumber(String number) {

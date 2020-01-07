@@ -31,7 +31,9 @@ dependencies {
     testImplementation 'com.codeborne:selenide:5.6.0'
 
     testImplementation 'mysql:mysql-connector-java:8.0.18'
-    testImplementation 'postgresql:postgresql:9.1-901-1.jdbc4'
+    testImplementation 'postgresql:postgresql:9.0-801.jdbc4'
+
+
     testImplementation 'commons-dbutils:commons-dbutils:1.7'
     testImplementation 'io.qameta.allure:allure-selenide:2.13.1'
     testImplementation 'io.rest-assured:rest-assured:4.1.2'
@@ -41,7 +43,8 @@ test {
     useJUnitPlatform()
     systemProperty 'selenide.headless', System.getProperty('selenide.headless')
     systemProperty 'file.encoding', 'UTF-8'
-    systemProperty 'db.url', System.getProperty('db.url', 'jdbc:mysql://localhost:3306/app')
+    //systemProperty 'db.url', System.getProperty('db.url', 'jdbc:mysql://localhost:3306/app')
+    //systemProperty 'db.url', System.getProperty('bd.url','jdbc:postgresql://localhost:5432/app')
     systemProperty 'app.url', System.getProperty('app.url', 'http://localhost')
     systemProperty 'app.port', System.getProperty('app.port', '8080')
     systemProperty 'app.userDB', System.getProperty('app.userDB', 'app')
