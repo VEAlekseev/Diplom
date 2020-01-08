@@ -9,22 +9,24 @@
 1. Запустить контейнеры: MySQL, Node.js
     ```
     docker-compose -f docker-compose-msql.yml up -d
-   
-   npm start
-
+    ```
+1. Запустить сервис gate-simulator. Для этого из папки с сервисом выполнить команду 
+    ```
+    npm start
     ```
 
-2. Запустить SUT
+1. Запустить SUT
     ```
     java -Dspring.datasource.url=jdbc:mysql://localhost:3306/app -jar artifacts/aqa-shop.jar
     ```
 
-3. Запустить тесты
+1. Запустить тесты
     ```
-    gradlew test -Dtest.db.url=jdbc:mysql://localhost:3306/app
+    gradlew test -Dtest.db.url=jdbc:mysql://localhost:3306/app --tests "ru.netology.MySqlTests.*"
+
     ```
    
-4. После прогона тестов остановить контейнеры
+1. После прогона тестов остановить контейнеры
     ```
     docker-compose -f docker-compose-msql.yml down
     ```
@@ -33,28 +35,29 @@
 1. Запустить контейнеры: Postgres, Node.js
     ```
     docker-compose -f docker-compose-psql.yml up -d
-
-   npm start
-
     ```
-
-2. Запустить SUT
+1. Запустить сервис gate-simulator. Для этого из папки с сервисом выполнить команду 
+    ```
+    npm start
+    ```
+   
+1. Запустить SUT
     ```
     java -Dspring.datasource.url=jdbc:postgresql://localhost:5432/app -jar artifacts/aqa-shop.jar
     ```
 
-3. Запустить тесты
+1. Запустить тесты
     ```
-    gradlew test -Dtest.db.url=jdbc:postgresql://localhost:5432/app
+    gradlew test -Dtest.db.url=jdbc:postgresql://localhost:5432/app --tests "ru.netology.PostgreSqlTests.*"
     ```
-4. После прогона тестов остановить контейнеры
+1. После прогона тестов остановить контейнеры
     ```
     docker-compose -f docker-compose-psql.yml down
     ```
    
    ### Allure
    
-   Для формирования отчета Allure выполнить команды 
+   Для формирования отчета Allure и его открытия в браузере выполнить команды 
    ```
    gradlew allureReport
    gradlew allureServe

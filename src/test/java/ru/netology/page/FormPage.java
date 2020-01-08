@@ -32,12 +32,12 @@ public class FormPage {
     }
 
     public void checkMessageSuccess() {
-        $$(".notification__title").find(exactText("Успешно")).waitUntil(visible, 120000);
+        $$(".notification__title").find(exactText("Успешно")).waitUntil(visible, 75000);
         $(withText("Ошибка")).shouldNotBe(Condition.appear);
     }
 
     public void checkMessageError() {
-        $$(".notification__title").find(exactText("Ошибка")).waitUntil(visible, 120000);
+        $$(".notification__title").find(exactText("Ошибка")).waitUntil(visible, 75000);
         $(withText("Успешно")).shouldNotBe(Condition.appear);
     }
 
