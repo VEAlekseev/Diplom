@@ -25,7 +25,8 @@ public class TestPayment {
 
     @AfterEach
     void clearAll() throws SQLException {
-        DBUtils.clearAllData();
+        DBUtils.clearAllDataMySQL();
+        DBUtils.clearAllDataPSQL();
     }
 
     @AfterAll

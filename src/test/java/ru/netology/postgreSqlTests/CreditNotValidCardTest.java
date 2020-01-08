@@ -1,36 +1,39 @@
 package ru.netology.postgreSqlTests;
 
-import com.codeborne.selenide.Condition;
 import lombok.val;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.Keys;
 import ru.netology.data.CreditModel;
+import ru.netology.data.DBUtils;
 import ru.netology.data.OrderModel;
+import ru.netology.page.FormPage;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import static com.codeborne.selenide.Selectors.withText;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class CreditNotValidCardTest {
+    private FormPage formPage;
+
+    @BeforeEach
+    void setUpPage() {
+        formPage = new FormPage();
+    }
 
     @Test
     void first_successfulFormFilling() {
-        open("http://localhost:8080");
-        $("button:last-of-type").click();
-        $("fieldset .input__control:first-of-type").setValue("4444444444444442").sendKeys(Keys.chord(Keys.TAB));
-        $(".input__control:focus").setValue("12").sendKeys(Keys.chord(Keys.TAB));
-        $(".input__control:focus").setValue("20").sendKeys(Keys.chord(Keys.TAB));
-        $(".input__control:focus").setValue("Ivanov Ivan").sendKeys(Keys.chord(Keys.TAB));
-        $(".input__control:focus").setValue("111");
-        $(withText("Продолжить")).click();
-        $(withText("Ошибка")).waitUntil(Condition.visible, 40000);
+        formPage.buyOnCredit();
+        formPage.setCardNumber("4444444444444442");
+        formPage.setCardMonth("01");
+        formPage.setCardYear("22");
+        formPage.setCardOwner("Ivanov Ivan");
+        formPage.setCardCVV("111");
+        formPage.pushСontinueButton();
+        formPage.checkMessageError();
     }
 
     @Test
@@ -53,10 +56,9 @@ public class CreditNotValidCardTest {
             assertNotNull(creditRow);
             assertEquals("DECLINED", creditStatus, "Credit status should be as");
             assertEquals(creditTransactionId, orderTransactionId, "Credit and Order IDs are not equal");
+            DBUtils.clearAllDataPSQL();
         }
     }
-
-
 
 
 }

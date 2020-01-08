@@ -1,17 +1,16 @@
 package ru.netology.page;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FormPage {
-
-    private static String appURL = System.getProperty("app.url");
-    private static String appPORT = System.getProperty("app.port");
 
 
     SelenideElement cardNumber = $(byText("Номер карты")).parent().$(".input__control");
@@ -21,23 +20,25 @@ public class FormPage {
     SelenideElement cvcOrCvvNumber = $(byText("CVC/CVV")).parent().$(".input__control");
 
     public void buyForYourMoney() {
-        open(appURL + ":" + appPORT);
+        open("http://localhost:8080");
         $$(".button__content").find(exactText("Купить")).click();
         $$(".heading_theme_alfa-on-white").find(exactText("Оплата по карте")).shouldBe(visible);
     }
 
     public void buyOnCredit() {
-        open(appURL + ":" + appPORT);
+        open("http://localhost:8080");
         $$(".button__content").find(exactText("Купить в кредит")).click();
         $$(".heading_theme_alfa-on-white").find(exactText("Кредит по данным карты")).shouldBe(visible);
     }
 
     public void checkMessageSuccess() {
-        $$(".notification__title").find(exactText("Успешно")).waitUntil(visible, 60000);
+        $$(".notification__title").find(exactText("Успешно")).waitUntil(visible, 120000);
+        $(withText("Ошибка")).shouldNotBe(Condition.appear);
     }
 
     public void checkMessageError() {
-        $$(".notification__title").find(exactText("Ошибка")).waitUntil(visible, 60000);
+        $$(".notification__title").find(exactText("Ошибка")).waitUntil(visible, 120000);
+        $(withText("Успешно")).shouldNotBe(Condition.appear);
     }
 
     public void checkExpected(String expected) {
