@@ -22,7 +22,7 @@
 
 1. Запустить тесты
     ```
-    gradlew test -Dtest.db.url=jdbc:mysql://localhost:3306/app --tests "ru.netology.MySqlTests.*"
+    gradlew test -Ddb.url=jdbc:mysql://localhost:3306/app
 
     ```
    
@@ -48,7 +48,7 @@
 
 1. Запустить тесты
     ```
-    gradlew test -Dtest.db.url=jdbc:postgresql://localhost:5432/app --tests "ru.netology.PostgreSqlTests.*"
+    gradlew test -Ddb.url=jdbc:postgresql://localhost:5432/app
     ```
 1. После прогона тестов остановить контейнеры
     ```
