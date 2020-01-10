@@ -12,20 +12,15 @@ import java.sql.SQLException;
 public class DBUtils {
     private static Connection connection;
 
-    public static void clearAllDataMySQL() throws SQLException {
+    public static void clearAllData() throws SQLException {
         val runner = new QueryRunner();
-        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/app", "app", "pass");
+        connection = DriverManager.getConnection(getUrl(), "app", "pass");
         runner.update(connection, "DELETE FROM credit_request_entity;");
         runner.update(connection, "DELETE FROM payment_entity;");
         runner.update(connection, "DELETE FROM order_entity;");
     }
 
-    public static void clearAllDataPSQL() throws SQLException {
-        val runner = new QueryRunner();
-        connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/app", "app", "pass");
-        runner.update(connection, "DELETE FROM credit_request_entity;");
-        runner.update(connection, "DELETE FROM payment_entity;");
-        runner.update(connection, "DELETE FROM order_entity;");
+    public static String getUrl() {
+        return System.getProperty("db.url");
     }
-
 }

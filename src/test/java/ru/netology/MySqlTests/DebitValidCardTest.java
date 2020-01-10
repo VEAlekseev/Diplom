@@ -44,7 +44,7 @@ public class DebitValidCardTest {
         val runner = new QueryRunner();
         try (
                 val conn = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3306/app", "app", "pass"
+                        DBUtils.getUrl(), "app", "pass"
                 );
         ) {
             val orderRow = runner.query(conn, orderSQLQuery, new BeanHandler<>(OrderModel.class));
@@ -58,7 +58,6 @@ public class DebitValidCardTest {
             assertEquals("APPROVED", paymentStatus, "Transaction status should be as");
             assertEquals(4500000, transactionAmount, "Transaction amount should be as");
             assertEquals(paymentTransactionId, orderTransactionId, "Payment and Order IDs are not equal");
-            DBUtils.clearAllDataMySQL();
         }
     }
 }

@@ -44,7 +44,7 @@ public class CreditValidCardTest {
         val runner = new QueryRunner();
         try (
                 val conn = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3306/app", "app", "pass"
+                        DBUtils.getUrl(), "app", "pass"
                 );
         ) {
             val orderRow = runner.query(conn, orderSQLQuery, new BeanHandler<>(OrderModel.class));
@@ -56,7 +56,6 @@ public class CreditValidCardTest {
             assertNotNull(creditRow);
             assertEquals("APPROVED", creditStatus, "Credit status should be as");
             assertEquals(creditTransactionId, orderTransactionId, "Credit and Order IDs are not equal");
-            DBUtils.clearAllDataMySQL();
         }
     }
 }
