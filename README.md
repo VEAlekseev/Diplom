@@ -4,6 +4,9 @@
 
 ### [Все найденные баги заведены в issues](https://github.com/VEAlekseev/Diploma/issues) 
 
+### [Отчет по итогам тестирования](https://github.com/VEAlekseev/Diploma/blob/master/Report.md)
+
+### [Отчётные документы по итогам автоматизации](https://github.com/VEAlekseev/Diploma/blob/master/Summary.md)
 
 #### Для работы с MySQL
 1. Запустить контейнеры: MySQL, Node.js
