@@ -70,4 +70,20 @@ public class FormPage {
     public void pushСontinueButton() {
         $$(".button__content").find(exactText("Продолжить")).click();
     }
+
+    public void validCardData(){
+        setCardNumber("4444444444444441");
+        setCardMonth("01");
+        setCardYear("22");
+        setCardOwner("Ivanov Ivan");
+        setCardCVV("111");
+    }
+
+    public void notValidCardData(){
+        setCardNumber("4444444444444442");
+        setCardMonth("01");
+        setCardYear("22");
+        setCardOwner("Ivanov Ivan");
+        setCardCVV("111");
+    }
 }

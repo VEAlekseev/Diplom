@@ -1,60 +1,25 @@
 package ru.netology.Tests;
 
-import com.codeborne.selenide.logevents.SelenideLogger;
-import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
-import ru.netology.data.DBUtils;
-import ru.netology.page.FormPage;
 
-import java.sql.SQLException;
-
-public class TestPayment {
-    private FormPage formPage;
-
-    @BeforeEach
-    void setUpPage() {
-        formPage = new FormPage();
-    }
-
-    @BeforeAll
-    static void setUpAll() {
-        SelenideLogger.addListener("allure", new AllureSelenide());
-    }
-
-    @AfterEach
-    void clearAll() throws SQLException {
-        DBUtils.clearAllData();
-    }
-
-    @AfterAll
-    static void tearDownAll() {
-        SelenideLogger.removeListener("allure");
-    }
+public class TestPayment extends BaseTest {
 
     @Test
     @DisplayName("Успешная покупка утвержденной картой")
-    void shouldPayByApprovedCard() throws SQLException {
+    void shouldPayByApprovedCard() {
         formPage.buyForYourMoney();
-        formPage.setCardNumber("4444444444444441");
-        formPage.setCardMonth("01");
-        formPage.setCardYear("22");
-        formPage.setCardOwner("Ivanov Ivan");
-        formPage.setCardCVV("111");
+        formPage.validCardData();
         formPage.pushСontinueButton();
         formPage.checkMessageSuccess();
     }
 
     @Test
     @DisplayName("Успешная покупка в кредит утвержденной картой")
-    void shouldPayCreditByApprovedCard() throws SQLException {
+    void shouldPayCreditByApprovedCard() {
         formPage.buyOnCredit();
-        formPage.setCardNumber("4444444444444441");
-        formPage.setCardMonth("01");
-        formPage.setCardYear("22");
-        formPage.setCardOwner("Ivanov Ivan");
-        formPage.setCardCVV("111");
+        formPage.validCardData();
         formPage.pushСontinueButton();
         formPage.checkMessageSuccess();
     }
@@ -62,7 +27,7 @@ public class TestPayment {
     @ParameterizedTest
     @CsvFileSource(resources = "/Field.csv", numLinesToSkip = 1)
     void verifyPayField(String numberCard, String mounth, String year, String name, String cvv,
-                        String expected, String message) throws SQLException {
+                        String expected, String message) {
         formPage.buyForYourMoney();
         formPage.setCardNumber(numberCard);
         formPage.setCardMonth(mounth);
@@ -76,7 +41,7 @@ public class TestPayment {
     @ParameterizedTest
     @CsvFileSource(resources = "/Field.csv", numLinesToSkip = 1)
     void verifyCreditField(String numberCard, String mounth, String year, String name, String cvv,
-                           String expected, String message) throws SQLException {
+                           String expected, String message) {
         formPage.buyOnCredit();
         formPage.setCardNumber(numberCard);
         formPage.setCardMonth(mounth);
@@ -90,26 +55,18 @@ public class TestPayment {
 
     @Test
     @DisplayName("Отказ покупки не утвержденной картой")
-    void shouldPayByNotApprovedCard() throws SQLException {
+    void shouldPayByNotApprovedCard() {
         formPage.buyOnCredit();
-        formPage.setCardNumber("4444444444444442");
-        formPage.setCardMonth("01");
-        formPage.setCardYear("22");
-        formPage.setCardOwner("Ivanov Ivan");
-        formPage.setCardCVV("111");
+        formPage.notValidCardData();
         formPage.pushСontinueButton();
         formPage.checkMessageError();
     }
 
     @Test
     @DisplayName("Отказ покупки в кредит не утвержденной картой")
-    void shouldPayCreditByNotApprovedCard() throws SQLException {
+    void shouldPayCreditByNotApprovedCard() {
         formPage.buyOnCredit();
-        formPage.setCardNumber("4444444444444442");
-        formPage.setCardMonth("01");
-        formPage.setCardYear("22");
-        formPage.setCardOwner("Ivanov Ivan");
-        formPage.setCardCVV("111");
+        formPage.notValidCardData();
         formPage.pushСontinueButton();
         formPage.checkMessageError();
     }
