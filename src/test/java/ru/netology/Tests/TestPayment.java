@@ -1,4 +1,4 @@
-package ru.netology.MySqlTests;
+package ru.netology.Tests;
 
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;

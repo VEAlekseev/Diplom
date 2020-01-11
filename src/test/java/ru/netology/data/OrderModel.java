@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Getter
 public class OrderModel {
-    private String id;
-    private String created;
-    private String credit_id;
-    private String payment_id;
+    String credit_id;
+    String payment_id;
+    String id;
+    String created;
 }

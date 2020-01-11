@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class PaymentModel {
-    public String id;
-    public int amount;
-    public String created;
-    public String status;
-    public String transaction_id;
+    String id;
+    int amount;
+    String created;
+    String status;
+    String transaction_id;
 }
