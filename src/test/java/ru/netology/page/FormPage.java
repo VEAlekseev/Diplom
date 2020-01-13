@@ -2,6 +2,7 @@ package ru.netology.page;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
+import ru.netology.models.CardModel;
 
 
 import static com.codeborne.selenide.Condition.*;
@@ -11,7 +12,7 @@ import static com.codeborne.selenide.Selenide.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FormPage {
-
+    private static String host = System.getProperty("host");
 
     SelenideElement cardNumber = $(byText("Номер карты")).parent().$(".input__control");
     SelenideElement month = $(byText("Месяц")).parent().$(".input__control");
@@ -20,28 +21,28 @@ public class FormPage {
     SelenideElement cvcOrCvvNumber = $(byText("CVC/CVV")).parent().$(".input__control");
 
     public void buyForYourMoney() {
-        open("http://localhost:8080");
+        open(host);
         $$(".button__content").find(exactText("Купить")).click();
         $$(".heading_theme_alfa-on-white").find(exactText("Оплата по карте")).shouldBe(visible);
     }
 
     public void buyOnCredit() {
-        open("http://localhost:8080");
+        open(host);
         $$(".button__content").find(exactText("Купить в кредит")).click();
         $$(".heading_theme_alfa-on-white").find(exactText("Кредит по данным карты")).shouldBe(visible);
     }
 
     public void checkMessageSuccess() {
         $$(".notification__title").find(exactText("Успешно")).waitUntil(visible, 75000);
-        $(withText("Ошибка")).shouldNotBe(Condition.appear);
+        $(withText("Успешно")).shouldBe(Condition.appear);
     }
 
     public void checkMessageError() {
         $$(".notification__title").find(exactText("Ошибка")).waitUntil(visible, 75000);
-        $(withText("Успешно")).shouldNotBe(Condition.appear);
+        $(withText("Ошибка")).shouldBe(Condition.appear);
     }
 
-    public void checkExpected(String expected) {
+    public void comparisonOfExpectedAndActualResult(String expected) {
         $(".input__sub").shouldHave(text(expected));
         String actual = $(".input__sub").innerText();
         assertEquals(expected, actual);

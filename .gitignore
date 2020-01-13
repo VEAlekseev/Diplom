@@ -3,6 +3,9 @@ Thumbs.db*
 HELP.md
 .gradle
 build/
+.allure
+data
+pgdata
 
 ### STS ###
 .apt_generated

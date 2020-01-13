@@ -1,23 +1,21 @@
-# Diploma
+# Дипломный проект профессии «Тестировщик»
 
-### [План автоматизации](https://github.com/VEAlekseev/Diploma/blob/master/Plan.md)
+##### Дипломный проект представляет собой автоматизацию тестирования комплексного сервиса, взаимодействующего с СУБД и API Банка.
 
-### [Все найденные баги заведены в issues](https://github.com/VEAlekseev/Diploma/issues) 
+## Документы:
+* ### [План автоматизации](https://github.com/VEAlekseev/Diploma/tree/master/Docs/Plan.md)
 
-### [Отчет по итогам тестирования](https://github.com/VEAlekseev/Diploma/blob/master/Report.md)
+* ### [Все найденные баги заведены в issues](https://github.com/VEAlekseev/Diploma/issues) 
 
-### [Отчётные документы по итогам автоматизации](https://github.com/VEAlekseev/Diploma/blob/master/Summary.md)
+* ### [Отчет по итогам тестирования](https://github.com/VEAlekseev/Diploma/tree/master/Docs/Report.md)
+
+* ### [Отчётные документы по итогам автоматизации](https://github.com/VEAlekseev/Diploma/tree/master/Docs/Summary.md)
 
 #### Для работы с MySQL
 1. Запустить контейнеры: MySQL, Node.js
     ```
     docker-compose -f docker-compose-msql.yml up -d
     ```
-1. Запустить сервис gate-simulator. Для этого из папки с сервисом выполнить команду 
-    ```
-    npm start
-    ```
-
 1. Запустить SUT
     ```
     java -Dspring.datasource.url=jdbc:mysql://localhost:3306/app -jar artifacts/aqa-shop.jar
@@ -43,11 +41,6 @@
     ```
     docker-compose -f docker-compose-psql.yml up -d
     ```
-1. Запустить сервис gate-simulator. Для этого из папки с сервисом выполнить команду 
-    ```
-    npm start
-    ```
-   
 1. Запустить SUT
     ```
     java -Dspring.datasource.url=jdbc:postgresql://localhost:5432/app -jar artifacts/aqa-shop.jar

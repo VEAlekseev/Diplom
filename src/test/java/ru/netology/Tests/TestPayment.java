@@ -26,30 +26,30 @@ public class TestPayment extends BaseTest {
 
     @ParameterizedTest
     @CsvFileSource(resources = "/Field.csv", numLinesToSkip = 1)
-    void verifyPayField(String numberCard, String mounth, String year, String name, String cvv,
+    void verifyPayField(String numberCard, String month, String year, String name, String cvv,
                         String expected, String message) {
         formPage.buyForYourMoney();
         formPage.setCardNumber(numberCard);
-        formPage.setCardMonth(mounth);
+        formPage.setCardMonth(month);
         formPage.setCardYear(year);
         formPage.setCardOwner(name);
         formPage.setCardCVV(cvv);
         formPage.pushСontinueButton();
-        formPage.checkExpected(expected);
+        formPage.comparisonOfExpectedAndActualResult(expected);
     }
 
     @ParameterizedTest
     @CsvFileSource(resources = "/Field.csv", numLinesToSkip = 1)
-    void verifyCreditField(String numberCard, String mounth, String year, String name, String cvv,
+    void verifyCreditField(String numberCard, String month, String year, String name, String cvv,
                            String expected, String message) {
         formPage.buyOnCredit();
         formPage.setCardNumber(numberCard);
-        formPage.setCardMonth(mounth);
+        formPage.setCardMonth(month);
         formPage.setCardYear(year);
         formPage.setCardOwner(name);
         formPage.setCardCVV(cvv);
         formPage.pushСontinueButton();
-        formPage.checkExpected(expected);
+        formPage.comparisonOfExpectedAndActualResult(expected);
     }
 
 
