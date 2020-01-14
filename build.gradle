@@ -44,7 +44,7 @@ test {
     systemProperty 'selenide.headless', System.getProperty('selenide.headless')
     systemProperty 'file.encoding', 'UTF-8'
     systemProperty 'db.url', System.getProperty('db.url')
-    systemProperty 'host', System.getProperty('host','http://localhost:8080')
-    systemProperty 'userDB', System.getProperty('userDB','app')
-    systemProperty 'password', System.getProperty('password','pass')
+    systemProperty 'host', System.getProperty('host', 'http://localhost:8080')
+    systemProperty 'userDB', System.getProperty('userDB', 'app')
+    systemProperty 'password', System.getProperty('password', 'pass')
 }

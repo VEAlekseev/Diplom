@@ -2,7 +2,6 @@ package ru.netology.page;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
-import ru.netology.models.CardModel;
 
 
 import static com.codeborne.selenide.Condition.*;
@@ -72,7 +71,7 @@ public class FormPage {
         $$(".button__content").find(exactText("Продолжить")).click();
     }
 
-    public void validCardData(){
+    public void validCardData() {
         setCardNumber("4444444444444441");
         setCardMonth("01");
         setCardYear("22");
@@ -80,7 +79,7 @@ public class FormPage {
         setCardCVV("111");
     }
 
-    public void notValidCardData(){
+    public void notValidCardData() {
         setCardNumber("4444444444444442");
         setCardMonth("01");
         setCardYear("22");
