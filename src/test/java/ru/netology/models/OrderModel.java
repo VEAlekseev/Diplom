@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Getter
 public class OrderModel {
     String credit_id;
-   public String payment_id;
+    public String payment_id;
     String id;
     String created;
 }

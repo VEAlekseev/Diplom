@@ -3,14 +3,18 @@ package ru.netology.Tests;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
+import ru.netology.models.CardModel;
 
 public class TestPayment extends BaseTest {
+    private CardModel validCard;
+    private CardModel invalidCard;
 
     @Test
     @DisplayName("Успешная покупка утвержденной картой")
     void shouldPayByApprovedCard() {
+        validCard = CardModel.generatedApprovedCard("ru");
         formPage.buyForYourMoney();
-        formPage.validCardData();
+        formPage.fillCardData(validCard);
         formPage.pushСontinueButton();
         formPage.checkMessageSuccess();
     }
@@ -18,8 +22,9 @@ public class TestPayment extends BaseTest {
     @Test
     @DisplayName("Успешная покупка в кредит утвержденной картой")
     void shouldPayCreditByApprovedCard() {
+        validCard = CardModel.generatedApprovedCard("ru");
         formPage.buyOnCredit();
-        formPage.validCardData();
+        formPage.fillCardData(validCard);
         formPage.pushСontinueButton();
         formPage.checkMessageSuccess();
     }
@@ -56,8 +61,9 @@ public class TestPayment extends BaseTest {
     @Test
     @DisplayName("Отказ покупки не утвержденной картой")
     void shouldPayByNotApprovedCard() {
+        invalidCard = CardModel.generatedDeclinedCard("ru");
         formPage.buyOnCredit();
-        formPage.notValidCardData();
+        formPage.fillCardData(invalidCard);
         formPage.pushСontinueButton();
         formPage.checkMessageError();
     }
@@ -65,8 +71,9 @@ public class TestPayment extends BaseTest {
     @Test
     @DisplayName("Отказ покупки в кредит не утвержденной картой")
     void shouldPayCreditByNotApprovedCard() {
+        invalidCard = CardModel.generatedDeclinedCard("ru");
         formPage.buyOnCredit();
-        formPage.notValidCardData();
+        formPage.fillCardData(invalidCard);
         formPage.pushСontinueButton();
         formPage.checkMessageError();
     }

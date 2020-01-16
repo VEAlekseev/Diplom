@@ -37,6 +37,7 @@ dependencies {
     testImplementation 'commons-dbutils:commons-dbutils:1.7'
     testImplementation 'io.qameta.allure:allure-selenide:2.13.1'
     testImplementation 'io.rest-assured:rest-assured:4.1.2'
+    testImplementation 'com.github.javafaker:javafaker:1.0.1'
 }
 
 test {

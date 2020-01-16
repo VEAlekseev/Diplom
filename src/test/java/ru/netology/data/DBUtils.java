@@ -10,6 +10,7 @@ import ru.netology.models.PaymentModel;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -42,26 +43,59 @@ public class DBUtils {
         runner.update(connection, "DELETE FROM order_entity;");
     }
 
+
     public static void checkLastPaymentStatus(String status) throws SQLException {
         val runner = new QueryRunner();
         getConnection();
-        val orderRow = runner.query(connection, orderSQLQuery, new BeanHandler<>(OrderModel.class));
         val paymentRow = runner.query(connection, paymentSQLQuery, new BeanHandler<>(PaymentModel.class));
-        assertNotNull(orderRow);
-        assertNotNull(paymentRow);
         assertEquals(status, paymentRow.status, "Transaction status should be as");
-        assertEquals(4500000, paymentRow.amount, "Transaction amount should be as");
-        assertEquals(paymentRow.transaction_id, orderRow.payment_id, "Payment and Order IDs are not equal");
     }
 
     public static void checkLastCreditStatus(String status) throws SQLException {
+        val runner = new QueryRunner();
+        getConnection();
+        val creditRow = runner.query(connection, creditSQLQuery, new BeanHandler<>(CreditModel.class));
+        assertEquals(status, creditRow.status, "Credit status should be as");
+    }
+
+    public static void checkRowCreditNotNull() throws SQLException {
         val runner = new QueryRunner();
         getConnection();
         val orderRow = runner.query(connection, orderSQLQuery, new BeanHandler<>(OrderModel.class));
         val creditRow = runner.query(connection, creditSQLQuery, new BeanHandler<>(CreditModel.class));
         assertNotNull(orderRow);
         assertNotNull(creditRow);
-        assertEquals(status, creditRow.status, "Credit status should be as");
+    }
+
+    public static void checkRowPaymentNotNull() throws SQLException {
+        val runner = new QueryRunner();
+        getConnection();
+        val orderRow = runner.query(connection, orderSQLQuery, new BeanHandler<>(OrderModel.class));
+        val paymentRow = runner.query(connection, paymentSQLQuery, new BeanHandler<>(PaymentModel.class));
+        assertNotNull(orderRow);
+        assertNotNull(paymentRow);
+    }
+
+    public static void comparisonExpectedAmountWithActual(int amount) throws SQLException {
+        val runner = new QueryRunner();
+        getConnection();
+        val paymentRow = runner.query(connection, paymentSQLQuery, new BeanHandler<>(PaymentModel.class));
+        assertEquals(amount, paymentRow.amount, "Transaction amount should be as");
+    }
+
+    public static void comparisonIDPaymentAndOrder() throws SQLException {
+        val runner = new AtomicReference<>(new QueryRunner());
+        getConnection();
+        val paymentRow = runner.get().query(connection, paymentSQLQuery, new BeanHandler<>(PaymentModel.class));
+        val orderRow = runner.get().query(connection, orderSQLQuery, new BeanHandler<>(OrderModel.class));
+        assertEquals(paymentRow.transaction_id, orderRow.payment_id, "Payment and Order IDs are not equal");
+    }
+
+    public static void comparisonIDCreditAndOrder() throws SQLException {
+        val runner = new QueryRunner();
+        getConnection();
+        val creditRow = runner.query(connection, creditSQLQuery, new BeanHandler<>(CreditModel.class));
+        val orderRow = runner.query(connection, orderSQLQuery, new BeanHandler<>(OrderModel.class));
         assertEquals(creditRow.bank_id, orderRow.payment_id, "Credit and Order IDs are not equal");
     }
 }
