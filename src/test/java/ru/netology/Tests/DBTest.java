@@ -16,9 +16,9 @@ public class DBTest extends BaseTest {
     @DisplayName("Тест дебетовой карты с проверкой в БД")
     void debitValidCardTest() throws SQLException {
         validCard = CardModel.generatedApprovedCard("ru");
-        formPage.buyForYourMoney();
+        formPage.buyByDebit();
         formPage.fillCardData(validCard);
-        formPage.pushСontinueButton();
+        formPage.pushContinueButton();
         formPage.checkMessageSuccess();
         DBUtils.checkRowPaymentNotNull();
         DBUtils.comparisonExpectedAmountWithActual(4500000);
@@ -30,9 +30,9 @@ public class DBTest extends BaseTest {
     @DisplayName("Тест невалидной дебетовой карты с проверкой в БД")
     void debitNotValidCardTest() throws SQLException {
         invalidCard = CardModel.generatedDeclinedCard("ru");
-        formPage.buyForYourMoney();
+        formPage.buyByDebit();
         formPage.fillCardData(invalidCard);
-        formPage.pushСontinueButton();
+        formPage.pushContinueButton();
         formPage.checkMessageSuccess();
         DBUtils.checkRowPaymentNotNull();
         DBUtils.comparisonExpectedAmountWithActual(4500000);
@@ -46,7 +46,7 @@ public class DBTest extends BaseTest {
         validCard = CardModel.generatedApprovedCard("ru");
         formPage.buyOnCredit();
         formPage.fillCardData(validCard);
-        formPage.pushСontinueButton();
+        formPage.pushContinueButton();
         formPage.checkMessageSuccess();
         DBUtils.checkRowCreditNotNull();
         DBUtils.checkLastCreditStatus("APPROVED");
@@ -59,7 +59,7 @@ public class DBTest extends BaseTest {
         invalidCard = CardModel.generatedDeclinedCard("ru");
         formPage.buyOnCredit();
         formPage.fillCardData(invalidCard);
-        formPage.pushСontinueButton();
+        formPage.pushContinueButton();
         formPage.checkMessageSuccess();
         DBUtils.checkRowCreditNotNull();
         DBUtils.checkLastCreditStatus("DECLINED");

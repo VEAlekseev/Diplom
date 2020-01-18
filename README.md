@@ -21,14 +21,15 @@
     java -Dspring.datasource.url=jdbc:mysql://localhost:3306/app -jar artifacts/aqa-shop.jar
     ```
 
-1. Запустить тесты с формированием отчета Allure
+1. Запустить тесты
     ```
-    gradlew test -Ddb.url=jdbc:mysql://localhost:3306/app clean test allureReport
+    gradlew test -Ddb.url=jdbc:mysql://localhost:3306/app
 
     ```
-   Для открытия отчета в браузере выполнить команду 
+   Для формирования отчета и его открытия в браузере выполнить команды 
       ```
-      gradlew allureServe
+   gradlew allureReport   
+   gradlew allureServe
       ```
    
 1. После прогона тестов остановить контейнеры
@@ -46,14 +47,15 @@
     java -Dspring.datasource.url=jdbc:postgresql://localhost:5432/app -jar artifacts/aqa-shop.jar
     ```
 
-1. Запустить тесты с формированием отчета Allure
+1. Запустить тесты
     ```
-    gradlew test -Ddb.url=jdbc:postgresql://localhost:5432/app clean test allureReport
+    gradlew test -Ddb.url=jdbc:postgresql://localhost:5432/app
     ```
-   Для открытия отчета в браузере выполнить команду 
+   Для формирования отчета и его открытия в браузере выполнить команды 
       ```
+      gradlew allureReport   
       gradlew allureServe
-      ```
+     ```
 1. После прогона тестов остановить контейнеры
     ```
     docker-compose -f docker-compose-psql.yml down

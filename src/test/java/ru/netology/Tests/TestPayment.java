@@ -13,9 +13,9 @@ public class TestPayment extends BaseTest {
     @DisplayName("Успешная покупка утвержденной картой")
     void shouldPayByApprovedCard() {
         validCard = CardModel.generatedApprovedCard("ru");
-        formPage.buyForYourMoney();
+        formPage.buyByDebit();
         formPage.fillCardData(validCard);
-        formPage.pushСontinueButton();
+        formPage.pushContinueButton();
         formPage.checkMessageSuccess();
     }
 
@@ -25,7 +25,7 @@ public class TestPayment extends BaseTest {
         validCard = CardModel.generatedApprovedCard("ru");
         formPage.buyOnCredit();
         formPage.fillCardData(validCard);
-        formPage.pushСontinueButton();
+        formPage.pushContinueButton();
         formPage.checkMessageSuccess();
     }
 
@@ -33,13 +33,13 @@ public class TestPayment extends BaseTest {
     @CsvFileSource(resources = "/Field.csv", numLinesToSkip = 1)
     void verifyPayField(String numberCard, String month, String year, String name, String cvv,
                         String expected, String message) {
-        formPage.buyForYourMoney();
+        formPage.buyByDebit();
         formPage.setCardNumber(numberCard);
         formPage.setCardMonth(month);
         formPage.setCardYear(year);
         formPage.setCardOwner(name);
         formPage.setCardCVV(cvv);
-        formPage.pushСontinueButton();
+        formPage.pushContinueButton();
         formPage.comparisonOfExpectedAndActualResult(expected);
     }
 
@@ -53,7 +53,7 @@ public class TestPayment extends BaseTest {
         formPage.setCardYear(year);
         formPage.setCardOwner(name);
         formPage.setCardCVV(cvv);
-        formPage.pushСontinueButton();
+        formPage.pushContinueButton();
         formPage.comparisonOfExpectedAndActualResult(expected);
     }
 
@@ -64,7 +64,7 @@ public class TestPayment extends BaseTest {
         invalidCard = CardModel.generatedDeclinedCard("ru");
         formPage.buyOnCredit();
         formPage.fillCardData(invalidCard);
-        formPage.pushСontinueButton();
+        formPage.pushContinueButton();
         formPage.checkMessageError();
     }
 
@@ -74,7 +74,7 @@ public class TestPayment extends BaseTest {
         invalidCard = CardModel.generatedDeclinedCard("ru");
         formPage.buyOnCredit();
         formPage.fillCardData(invalidCard);
-        formPage.pushСontinueButton();
+        formPage.pushContinueButton();
         formPage.checkMessageError();
     }
 }

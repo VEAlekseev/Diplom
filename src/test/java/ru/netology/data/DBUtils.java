@@ -37,65 +37,57 @@ public class DBUtils {
 
     public static void clearAllData() throws SQLException {
         val runner = new QueryRunner();
-        getConnection();
-        runner.update(connection, "DELETE FROM credit_request_entity;");
-        runner.update(connection, "DELETE FROM payment_entity;");
-        runner.update(connection, "DELETE FROM order_entity;");
+        runner.update(getConnection(), "DELETE FROM credit_request_entity;");
+        runner.update(getConnection(), "DELETE FROM payment_entity;");
+        runner.update(getConnection(), "DELETE FROM order_entity;");
     }
 
 
     public static void checkLastPaymentStatus(String status) throws SQLException {
         val runner = new QueryRunner();
-        getConnection();
-        val paymentRow = runner.query(connection, paymentSQLQuery, new BeanHandler<>(PaymentModel.class));
+        val paymentRow = runner.query(getConnection(), paymentSQLQuery, new BeanHandler<>(PaymentModel.class));
         assertEquals(status, paymentRow.status, "Transaction status should be as");
     }
 
     public static void checkLastCreditStatus(String status) throws SQLException {
         val runner = new QueryRunner();
-        getConnection();
-        val creditRow = runner.query(connection, creditSQLQuery, new BeanHandler<>(CreditModel.class));
+        val creditRow = runner.query(getConnection(), creditSQLQuery, new BeanHandler<>(CreditModel.class));
         assertEquals(status, creditRow.status, "Credit status should be as");
     }
 
     public static void checkRowCreditNotNull() throws SQLException {
         val runner = new QueryRunner();
-        getConnection();
-        val orderRow = runner.query(connection, orderSQLQuery, new BeanHandler<>(OrderModel.class));
-        val creditRow = runner.query(connection, creditSQLQuery, new BeanHandler<>(CreditModel.class));
+        val orderRow = runner.query(getConnection(), orderSQLQuery, new BeanHandler<>(OrderModel.class));
+        val creditRow = runner.query(getConnection(), creditSQLQuery, new BeanHandler<>(CreditModel.class));
         assertNotNull(orderRow);
         assertNotNull(creditRow);
     }
 
     public static void checkRowPaymentNotNull() throws SQLException {
         val runner = new QueryRunner();
-        getConnection();
-        val orderRow = runner.query(connection, orderSQLQuery, new BeanHandler<>(OrderModel.class));
-        val paymentRow = runner.query(connection, paymentSQLQuery, new BeanHandler<>(PaymentModel.class));
+        val orderRow = runner.query(getConnection(), orderSQLQuery, new BeanHandler<>(OrderModel.class));
+        val paymentRow = runner.query(getConnection(), paymentSQLQuery, new BeanHandler<>(PaymentModel.class));
         assertNotNull(orderRow);
         assertNotNull(paymentRow);
     }
 
     public static void comparisonExpectedAmountWithActual(int amount) throws SQLException {
         val runner = new QueryRunner();
-        getConnection();
-        val paymentRow = runner.query(connection, paymentSQLQuery, new BeanHandler<>(PaymentModel.class));
+        val paymentRow = runner.query(getConnection(), paymentSQLQuery, new BeanHandler<>(PaymentModel.class));
         assertEquals(amount, paymentRow.amount, "Transaction amount should be as");
     }
 
     public static void comparisonIDPaymentAndOrder() throws SQLException {
         val runner = new AtomicReference<>(new QueryRunner());
-        getConnection();
-        val paymentRow = runner.get().query(connection, paymentSQLQuery, new BeanHandler<>(PaymentModel.class));
-        val orderRow = runner.get().query(connection, orderSQLQuery, new BeanHandler<>(OrderModel.class));
+        val paymentRow = runner.get().query(getConnection(), paymentSQLQuery, new BeanHandler<>(PaymentModel.class));
+        val orderRow = runner.get().query(getConnection(), orderSQLQuery, new BeanHandler<>(OrderModel.class));
         assertEquals(paymentRow.transaction_id, orderRow.payment_id, "Payment and Order IDs are not equal");
     }
 
     public static void comparisonIDCreditAndOrder() throws SQLException {
         val runner = new QueryRunner();
-        getConnection();
-        val creditRow = runner.query(connection, creditSQLQuery, new BeanHandler<>(CreditModel.class));
-        val orderRow = runner.query(connection, orderSQLQuery, new BeanHandler<>(OrderModel.class));
+        val creditRow = runner.query(getConnection(), creditSQLQuery, new BeanHandler<>(CreditModel.class));
+        val orderRow = runner.query(getConnection(), orderSQLQuery, new BeanHandler<>(OrderModel.class));
         assertEquals(creditRow.bank_id, orderRow.payment_id, "Credit and Order IDs are not equal");
     }
 }

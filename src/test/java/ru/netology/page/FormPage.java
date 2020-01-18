@@ -19,32 +19,43 @@ public class FormPage {
     SelenideElement year = $(byText("Год")).parent().$(".input__control");
     SelenideElement cardOwner = $(byText("Владелец")).parent().$(".input__control");
     SelenideElement cvcOrCvvNumber = $(byText("CVC/CVV")).parent().$(".input__control");
+    SelenideElement continueButton = $$(".button__content").find(exactText("Продолжить"));
+    SelenideElement buyButton = $$(".button__content").find(exactText("Купить"));
+    SelenideElement buyCreditButton = $$(".button__content").find(exactText("Купить в кредит"));
+    SelenideElement cardPayment = $$(".heading_theme_alfa-on-white").find(exactText("Оплата по карте"));
+    SelenideElement creditAccordingToTheCard = $$(".heading_theme_alfa-on-white").find(exactText("Кредит " +
+            "по данным карты"));
+    SelenideElement success = $(withText("Успешно"));
+    SelenideElement error = $(withText("Ошибка"));
+    SelenideElement successSearch = $$(".notification__title").find(exactText("Успешно"));
+    SelenideElement errorSearch = $$(".notification__title").find(exactText("Ошибка"));
+    SelenideElement inputSub = $(".input__sub");
 
-    public void buyForYourMoney() {
+    public void buyByDebit() {
         open(host);
-        $$(".button__content").find(exactText("Купить")).click();
-        $$(".heading_theme_alfa-on-white").find(exactText("Оплата по карте")).shouldBe(visible);
+        buyButton.click();
+        cardPayment.shouldBe(visible);
     }
 
     public void buyOnCredit() {
         open(host);
-        $$(".button__content").find(exactText("Купить в кредит")).click();
-        $$(".heading_theme_alfa-on-white").find(exactText("Кредит по данным карты")).shouldBe(visible);
+        buyCreditButton.click();
+        creditAccordingToTheCard.shouldBe(visible);
     }
 
     public void checkMessageSuccess() {
-        $$(".notification__title").find(exactText("Успешно")).waitUntil(visible, 75000);
-        $(withText("Успешно")).shouldBe(Condition.appear);
+        successSearch.waitUntil(visible, 10000);
+        success.shouldBe(Condition.appear);
     }
 
     public void checkMessageError() {
-        $$(".notification__title").find(exactText("Ошибка")).waitUntil(visible, 75000);
-        $(withText("Ошибка")).shouldBe(Condition.appear);
+        errorSearch.waitUntil(visible, 10000);
+        error.shouldBe(Condition.appear);
     }
 
     public void comparisonOfExpectedAndActualResult(String expected) {
-        $(".input__sub").shouldHave(text(expected));
-        String actual = $(".input__sub").innerText();
+        inputSub.shouldHave(text(expected));
+        String actual = inputSub.innerText();
         assertEquals(expected, actual);
     }
 
@@ -68,8 +79,8 @@ public class FormPage {
         cvcOrCvvNumber.setValue(cvv);
     }
 
-    public void pushСontinueButton() {
-        $$(".button__content").find(exactText("Продолжить")).click();
+    public void pushContinueButton() {
+        continueButton.click();
     }
 
     public void fillCardData(CardModel cardModel) {
